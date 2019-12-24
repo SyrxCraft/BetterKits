@@ -11,10 +11,14 @@ import org.spongepowered.api.text.format.TextColors;
 import net.kaikk.mc.betterkits.sponge.BetterKits;
 
 public class ReloadCommand implements CommandExecutor {
+
 	private BetterKits instance;
+
 	public ReloadCommand(BetterKits instance) {
 		this.instance = instance;
 	}
+
+
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 		try {

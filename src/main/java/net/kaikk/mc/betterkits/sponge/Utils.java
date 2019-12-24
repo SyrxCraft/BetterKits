@@ -73,14 +73,11 @@ public class Utils {
 	/** 
 	 * Returns a Tristate value from a Boolean object
 	 * @param b The Boolean object.
-	 * @return {@link Tristate.UNDEFINED} if b is null<br>
-	 *  {@link Tristate.TRUE} if b is true<br>
-	 *  {@link Tristate.FALSE} if b is false
 	 */
 	public static Tristate tristate(@Nullable Boolean b) {
 		return b==null ? Tristate.UNDEFINED : b ? Tristate.TRUE : Tristate.FALSE;
 	}
-	
+
 	public static String getCaller() {
 	  final StackTraceElement[] a = Thread.currentThread().getStackTrace();
 	  return a[a.length - 4].toString();

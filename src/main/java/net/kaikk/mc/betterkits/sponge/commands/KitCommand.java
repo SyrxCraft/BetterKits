@@ -16,10 +16,13 @@ import net.kaikk.mc.betterkits.sponge.Messages;
 import net.kaikk.mc.betterkits.sponge.PlayerData;
 
 public class KitCommand implements CommandExecutor {
+
 	private BetterKits instance;
+
 	public KitCommand(BetterKits instance) {
 		this.instance = instance;
 	}
+
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 		if (!(src instanceof Player)) {

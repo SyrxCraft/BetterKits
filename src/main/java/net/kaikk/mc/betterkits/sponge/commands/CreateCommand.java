@@ -19,12 +19,17 @@ import net.kaikk.mc.betterkits.sponge.Kit;
 import net.kaikk.mc.betterkits.sponge.Messages;
 
 public class CreateCommand implements CommandExecutor {
+
 	private BetterKits instance;
+
 	public CreateCommand(BetterKits instance) {
 		this.instance = instance;
 	}
+
+
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+
 		if (!(src instanceof Player)) {
 			src.sendMessage(Messages.get("OnlyPlayersCanRunThis"));
 			return CommandResult.empty();
@@ -44,8 +49,11 @@ public class CreateCommand implements CommandExecutor {
 
 		BlockRay<World> blockRay = BlockRay.from(((Player)src)).distanceLimit(5).skipFilter(BlockRay.continueAfterFilter(BlockRay.onlyAirFilter(), 1)).build();
 		Optional<BlockRayHit<World>> hitOpt = blockRay.end();
+
 		if (hitOpt.isPresent() && instance.config().allowedChests.contains(hitOpt.get().getLocation().getBlock().getType())) {
+
 		    instance.addKit(new Kit(kitName, hitOpt.get().getLocation()));
+
 			try {
 				instance.saveData();
 				src.sendMessage(Text.of(TextColors.GREEN, "Kit created."));

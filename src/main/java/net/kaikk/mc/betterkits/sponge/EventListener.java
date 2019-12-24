@@ -1,21 +1,14 @@
 package net.kaikk.mc.betterkits.sponge;
 
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 
 public class EventListener {
+
 	private BetterKits instance;
 	
 	public EventListener(BetterKits instance) {
 		this.instance = instance;
-	}
-
-	@Listener
-	public void onInventoryClick(ClickInventoryEvent event) {
-		if (event.getCause().containsNamed("BetterKits")) {
-			event.setCancelled(true);
-		}
 	}
 	
 	@Listener

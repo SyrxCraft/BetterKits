@@ -20,7 +20,7 @@ public class Config {
 	
 	public Config(BetterKits instance) throws Exception {
 		//load defaults
-		URL defaultsInJarURL = CommonUtils.class.getResource("config.yml");
+		URL defaultsInJarURL = getClass().getResource("/betterkits/config.yml");
 		YAMLConfigurationLoader defaultsLoader = YAMLConfigurationLoader.builder().setURL(defaultsInJarURL).build();
 		ConfigurationNode defaults = defaultsLoader.load();
 

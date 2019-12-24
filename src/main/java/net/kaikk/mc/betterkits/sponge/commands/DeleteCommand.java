@@ -12,12 +12,17 @@ import net.kaikk.mc.betterkits.sponge.BetterKits;
 import net.kaikk.mc.betterkits.sponge.Messages;
 
 public class DeleteCommand implements CommandExecutor {
+
 	private BetterKits instance;
+
 	public DeleteCommand(BetterKits instance) {
 		this.instance = instance;
 	}
+
+
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+
 		final String kitName = args.<String>getOne("kit").get();
 		
 		if (instance.removeKit(kitName) != null) {

@@ -15,6 +15,7 @@ import ninja.leaping.configurate.objectmapping.serialize.TypeSerializer;
 
 
 public class PlayerData extends net.kaikk.mc.betterkits.common.CommonPlayerData  {
+
 	public PlayerData(UUID playerUUID) {
 		super(playerUUID);
 	}

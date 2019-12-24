@@ -12,16 +12,21 @@ import net.kaikk.mc.betterkits.sponge.BetterKits;
 import net.kaikk.mc.betterkits.sponge.Kit;
 
 public class ClearCacheCommand implements CommandExecutor {
+
 	private BetterKits instance;
+
 	public ClearCacheCommand(BetterKits instance) {
 		this.instance = instance;
 	}
 
+
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+
 		for (Kit kit : instance.getKits()) {
 			kit.clearCache();
 		}
+
 		src.sendMessage(Text.of(TextColors.GREEN, "Kits cache cleared."));
 		return CommandResult.success();
 	}

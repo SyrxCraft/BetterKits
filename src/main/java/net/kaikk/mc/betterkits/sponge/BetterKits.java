@@ -17,9 +17,11 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.text.Text;
 
 import com.google.common.reflect.TypeToken;
@@ -45,7 +47,9 @@ import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
 
 @Plugin(id=PluginInfo.id, name = PluginInfo.name, version = PluginInfo.version, description = PluginInfo.description)
 public class BetterKits {
+
 	private static BetterKits instance;
+	private static PluginContainer container;
 	private Config config;
 	
 	private Map<String, Kit> kits;
@@ -65,7 +69,8 @@ public class BetterKits {
 	@Listener
 	public void onGameInitialization(GameInitializationEvent event) throws Exception {
 		instance = this;
-		
+		container = Sponge.getPluginManager().fromInstance(this).get();
+
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Kit.class), new KitSerializer());
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(PlayerData.class), new PlayerDataSerializer());
 		
@@ -150,7 +155,11 @@ public class BetterKits {
 	public static BetterKits instance() {
 		return instance;
 	}
-	
+
+	public static PluginContainer getContainer() {
+		return container;
+	}
+
 	public Config config() {
 		return config;
 	}

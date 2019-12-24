@@ -15,10 +15,14 @@ import net.kaikk.mc.betterkits.sponge.Messages;
 import net.kaikk.mc.betterkits.sponge.PlayerData;
 
 public class GiveCommand implements CommandExecutor {
+
 	private BetterKits instance;
+
 	public GiveCommand(BetterKits instance) {
 		this.instance = instance;
 	}
+
+
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 		final User user = args.<User>getOne("user").get();

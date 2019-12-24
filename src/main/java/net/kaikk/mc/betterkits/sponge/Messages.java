@@ -21,7 +21,7 @@ public class Messages {
 	public static void load(BetterKits instance) {
 		//load defaults
 		try {
-			URL defaultsInJarURL = CommonUtils.class.getResource("messages.yml");
+			URL defaultsInJarURL = Messages.class.getResource("/betterkits/messages.yml");
 			YAMLConfigurationLoader defaultsLoader = YAMLConfigurationLoader.builder().setURL(defaultsInJarURL).build();
 			ConfigurationNode defaults = defaultsLoader.load();
 			
