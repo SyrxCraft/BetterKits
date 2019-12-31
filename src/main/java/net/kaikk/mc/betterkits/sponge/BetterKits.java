@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import net.kaikk.mc.betterkits.sponge.commands.*;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
@@ -29,15 +30,6 @@ import com.google.inject.Inject;
 
 import net.kaikk.mc.betterkits.sponge.Kit.KitSerializer;
 import net.kaikk.mc.betterkits.sponge.PlayerData.PlayerDataSerializer;
-import net.kaikk.mc.betterkits.sponge.commands.ClearCacheCommand;
-import net.kaikk.mc.betterkits.sponge.commands.CreateCommand;
-import net.kaikk.mc.betterkits.sponge.commands.DeleteCommand;
-import net.kaikk.mc.betterkits.sponge.commands.EditCommand;
-import net.kaikk.mc.betterkits.sponge.commands.GiveCommand;
-import net.kaikk.mc.betterkits.sponge.commands.KitCommand;
-import net.kaikk.mc.betterkits.sponge.commands.KitsCommand;
-import net.kaikk.mc.betterkits.sponge.commands.PreviewCommand;
-import net.kaikk.mc.betterkits.sponge.commands.ReloadCommand;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
@@ -113,6 +105,13 @@ public class BetterKits {
 				.description(Text.of("GiveCommand"))
 				.arguments(GenericArguments.user(Text.of("user")), GenericArguments.string(Text.of("kit")))
 				.executor(new GiveCommand(this)).build(), "kitgive");
+
+		Sponge.getCommandManager().register(this,
+				CommandSpec.builder()
+				.permission("betterkits.givekit")
+				.description(Text.of("GiveKitCommand"))
+				.arguments(GenericArguments.user(Text.of("user")), GenericArguments.string(Text.of("kit")))
+				.executor(new GiveKitCommand(this)).build(),"givekit");
 		
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
