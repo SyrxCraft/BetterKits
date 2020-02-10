@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import net.kaikk.mc.betterkits.sponge.commands.*;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
@@ -56,27 +57,33 @@ public class BetterKits {
 	private Path configDir;
 	
 	@Inject
-	private Logger logger;
+	private Logger logger = LoggerFactory.getLogger("BetterKits");
 	
 	@Listener
 	public void onGameInitialization(GameInitializationEvent event) throws Exception {
 		instance = this;
 		container = Sponge.getPluginManager().fromInstance(this).get();
 
+		logger.info("Hello World!");
+
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Kit.class), new KitSerializer());
 		TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(PlayerData.class), new PlayerDataSerializer());
-		
+
+		logger.info("Loading config files...");
 		this.load();
-		
+
+		logger.info("Registering events.");
 		// Register listener
 		Sponge.getEventManager().registerListeners(this, new EventListener(this));
-		
+
+		logger.info("Registering commands.");
 		// Register command
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
 				.permission("betterkits.clearcache")
 				.description(Text.of("ClearCacheCommand"))
 				.executor(new ClearCacheCommand(this)).build(), "kitclearcache");
+		logger.info(" > ClearCache");
 
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
@@ -84,21 +91,27 @@ public class BetterKits {
 				.description(Text.of("KitCreateCommand"))
 				.arguments(GenericArguments.string(Text.of("kit")))
 				.executor(new CreateCommand(this)).build(), "kitcreate");
-		
+
+		logger.info(" > Create");
+
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
 				.permission("betterkits.delete")
 				.description(Text.of("DeleteCommand"))
 				.arguments(GenericArguments.string(Text.of("kit")))
 				.executor(new DeleteCommand(this)).build(), "kitdelete");
-		
+
+		logger.info(" > Delete");
+
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
 				.permission("betterkits.edit")
 				.description(Text.of("EditCommand"))
 				.arguments(GenericArguments.string(Text.of("kit")), Utils.buildChoices("subcommand", "content", "cooldown", "commandslist", "addcommand", "removecommand"), GenericArguments.optional(GenericArguments.remainingJoinedStrings(Text.of("param"))))
 				.executor(new EditCommand(this)).build(), "kitedit");
-		
+
+		logger.info(" > Edit");
+
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
 				.permission("betterkits.give")
@@ -106,37 +119,50 @@ public class BetterKits {
 				.arguments(GenericArguments.user(Text.of("user")), GenericArguments.string(Text.of("kit")))
 				.executor(new GiveCommand(this)).build(), "kitgive");
 
+		logger.info(" > Give");
+
 		Sponge.getCommandManager().register(this,
 				CommandSpec.builder()
 				.permission("betterkits.givekit")
 				.description(Text.of("GiveKitCommand"))
 				.arguments(GenericArguments.user(Text.of("user")), GenericArguments.string(Text.of("kit")))
 				.executor(new GiveKitCommand(this)).build(),"givekit");
-		
+
+		logger.info(" > GiveKit");
+
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
 				.description(Text.of("KitCommand"))
 				.arguments(GenericArguments.string(Text.of("kit")))
 				.executor(new KitCommand(this)).build(), "kit", "bkit", "getkit");
-		
+
+		logger.info(" > Kit");
+
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
 				.description(Text.of("KitsCommand"))
 				.arguments(GenericArguments.optional(Utils.buildChoices("all", "all")))
 				.executor(new KitsCommand(this)).build(), "kits", "bkits", "kitlist");
-		
+
+		logger.info(" > Kits");
+
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
 				.permission("betterkits.preview")
 				.description(Text.of("PreviewCommand"))
 				.arguments(GenericArguments.string(Text.of("kit")))
 				.executor(new PreviewCommand(this)).build(), "kitpreview", "kitp", "bkitp");
-		
+
+		logger.info(" > Preview");
+
 		Sponge.getCommandManager().register(this, 
 				CommandSpec.builder()
 				.permission("betterkits.reload")
 				.description(Text.of("ReloadCommand"))
 				.executor(new ReloadCommand(this)).build(), "kitreload");
+
+		logger.info(" > Reload");
+		logger.info("Load complete...");
 	}
 	
 	@Listener
