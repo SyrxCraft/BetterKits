@@ -16,6 +16,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.kaikk.mc.betterkits.common.CommonUtils;
+import org.spongepowered.api.text.Text;
 
 
 public class CommandExec implements CommandExecutor {
@@ -30,6 +31,7 @@ public class CommandExec implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+
 		switch(cmd.getName()) {
 		case "kitgive":
 			return give(sender, label, args);
@@ -37,6 +39,8 @@ public class CommandExec implements CommandExecutor {
 			return clearCache(sender, label, args);
 		case "kits":
 			return kits(sender, label, args);
+		case "givekit":
+			return giveKit(sender,label,args);
 		}
 		
 		if (!(sender instanceof Player)) {
@@ -366,5 +370,36 @@ public class CommandExec implements CommandExecutor {
 		}
 		sender.sendMessage(ChatColor.GREEN + "Kits cache cleared.");
 		return true;
+	}
+
+	public boolean giveKit(CommandSender sender, String label, String[] args){
+
+		if (!sender.hasPermission("betterkits.givekit")) {
+			sender.sendMessage(Messages.get("PermissionDenied"));
+			return false;
+		}
+
+		if(args.length < 2){
+			sender.sendMessage(ChatColor.RED + "Invalid parameter");
+			return false;
+		}
+
+		Kit kit = instance.getKit(args[0]);
+		Player player = Bukkit.getPlayer(args[1]);
+
+		if(kit != null){
+			if(player != null && player.isOnline()){
+				kit.give(player);
+				sender.sendMessage("\u00A7aThe player " + player.getName() + " has received the kit " + kit.getName() + ".");
+				player.sendMessage(Messages.get("YouReceivedKit","name",kit.getName()));
+				return true;
+			}else {
+				sender.sendMessage(Messages.get("PlayerNotOnline"));
+				return false;
+			}
+		}else {
+			sender.sendMessage(Messages.get("KitNotFound"));
+			return false;
+		}
 	}
 }

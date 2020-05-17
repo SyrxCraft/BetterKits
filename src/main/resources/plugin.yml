@@ -16,6 +16,7 @@ commands:
    kitedit:
    kitclearcache:
    kitreload:
+   givekit:
 
 permissions:
     betterkits.list:
@@ -40,6 +41,8 @@ permissions:
         default: false
     betterkits.bypasscooldown.allkits:
         default: false
+    betterkits.givekit:
+        default: op
 
     # betterkits.kit.[kitname]
     # betterkits.bypasscooldown.kit.[kitname]

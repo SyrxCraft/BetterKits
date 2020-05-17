@@ -15,11 +15,13 @@ public class Config {
 	public String kitTitleFormat, starterKitName;
 	
 	public Config(JavaPlugin instance) {
+
 		try {
-			CommonUtils.extractResource("config.yml", new File(instance.getDataFolder(), "config.yml"), false);
+			CommonUtils.extractResource("/betterkits/config.yml", new File(instance.getDataFolder(), "config.yml"), false);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+
 		instance.reloadConfig();
 		
 		for (String s : instance.getConfig().getStringList("AllowedChests")) {

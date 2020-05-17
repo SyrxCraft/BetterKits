@@ -2,6 +2,7 @@ package net.kaikk.mc.betterkits.bukkit;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,13 +18,13 @@ public class Messages {
 	
 	public static void load(JavaPlugin instance) {
 		try {
-			CommonUtils.extractResource("messages.yml", new File(instance.getDataFolder(), "messages.yml"), false);
+			CommonUtils.extractResource("/betterkits/messages.yml", new File(instance.getDataFolder(), "messages.yml"), false);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 		
 		@SuppressWarnings("deprecation")
-		FileConfiguration defaultMessages = YamlConfiguration.loadConfiguration(CommonUtils.getResourceAsStream("messages.yml"));
+		FileConfiguration defaultMessages = YamlConfiguration.loadConfiguration(new InputStreamReader(CommonUtils.getResourceAsStream("/betterkits/messages.yml")));
 		FileConfiguration sMessages = YamlConfiguration.loadConfiguration(new File(instance.getDataFolder(), "messages.yml"));
 		
 		messages.clear();
